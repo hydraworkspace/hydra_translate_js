@@ -11,10 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hydraworkspace/hydra_translate_js.git"
+    "url": "git+https://github.com/hydraworkspace/hydra_translate_js.git"
   },
   "keywords": [],
-  "license": "ISC",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
   "bugs": {
     "url": "https://github.com/hydraworkspace/hydra_translate_js/issues"
   },
