@@ -1,0 +1,26 @@
+{
+  "name": "hydra_translate_js",
+  "version": "1.0.0",
+  "description": "",
+  "author": "wakeup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts --dts --format cjs,esm,iife --out-dir dist",
+    "dev": "tsup src/index.ts --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hydraworkspace/hydra_translate_js.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hydraworkspace/hydra_translate_js/issues"
+  },
+  "homepage": "https://github.com/hydraworkspace/hydra_translate_js#readme",
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+}
