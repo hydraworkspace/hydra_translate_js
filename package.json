@@ -1,9 +1,10 @@
 {
   "name": "hydra_translate_js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "author": "wakeup",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup src/index.ts --dts --format cjs,esm,iife --out-dir dist",
