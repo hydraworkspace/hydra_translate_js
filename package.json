@@ -1,20 +1,29 @@
 {
   "name": "@wake-up/hydra-translate-js",
   "version": "1.0.3",
-  "description": "",
+  "description": "Lightweight DOM phrase extractor",
   "author": "wakeup",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup src/index.ts --dts --format cjs,esm,iife --out-dir dist",
-    "dev": "tsup src/index.ts --watch"
+    "build": "tsup src --dts --format cjs,esm,iife --out-dir dist",
+    "dev": "tsup src --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hydraworkspace/hydra_translate_js.git"
   },
-  "keywords": [],
+  "keywords": [
+    "i18n",
+    "translation",
+    "javascript",
+    "typescript",
+    "spa",
+    "localize",
+    "hydra"
+  ],
   "license": "MIT",
   "files": [
     "dist",

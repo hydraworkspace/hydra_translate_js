@@ -1,3 +1,2 @@
-declare const hello: () => void;
 
-export { hello };
+export {  }
