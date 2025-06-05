@@ -1,6 +1,6 @@
 {
-  "name": "hydra_translate_js",
-  "version": "1.0.2",
+  "name": "@wake-up/hydra-translate-js",
+  "version": "1.0.3",
   "description": "",
   "author": "wakeup",
   "main": "dist/index.js",
