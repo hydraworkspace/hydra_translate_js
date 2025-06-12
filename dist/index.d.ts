@@ -1,2 +1,3 @@
+declare function helloWorld(): void;
 
-export {  }
+export { helloWorld };

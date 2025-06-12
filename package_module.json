@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup src/index.ts --dts --format iife --globalName=HydraTranslate --out-dir dist",
+    "build": "tsup src --dts --format cjs,esm,iife --out-dir dist",
     "dev": "tsup src --watch"
   },
   "repository": {
