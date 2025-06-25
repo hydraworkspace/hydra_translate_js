@@ -1,6 +1,6 @@
 {
-  "name": "@wake-up/hydra-translate-js",
-  "version": "1.0.4",
+  "name": "hydra-translate-js",
+  "version": "1.0.0",
   "description": "Lightweight DOM phrase extractor",
   "author": "wakeup",
   "main": "dist/index.js",
