@@ -65,19 +65,22 @@ export class PhraseScanner {
    * Traverse DOM node đệ quy và thu thập cụm từ
    */
   private traverse(node: HTMLElement, phrases: Set<string>) {
-    const text = node.textContent?.trim();
-    if (isValidPhrase(text)) phrases.add(text);
-
+    // 1. Quét các attribute
     this.attributes.forEach(attr => {
       const value = node.getAttribute(attr)?.trim();
       if (isValidPhrase(value)) {
         phrases.add(value);
+        console.log(attr, value);
       }
     });
 
+    // 2. Quét giá trị input/select
     if (node instanceof HTMLInputElement || node instanceof HTMLTextAreaElement) {
       const value = node.value?.trim();
-      if (isValidPhrase(value)) phrases.add(value);
+      if (isValidPhrase(value)) {
+        phrases.add(value);
+        console.log('input', value);
+      }
     }
 
     if (node instanceof HTMLSelectElement) {
@@ -86,12 +89,23 @@ export class PhraseScanner {
         const optionText = selectedOption.textContent?.trim();
         if (isValidPhrase(optionText)) {
           phrases.add(optionText);
+          console.log('select', optionText);
         }
       }
     }
 
-    Array.from(node.children).forEach(child => {
-      this.traverse(child as HTMLElement, phrases);
+    // 3. Duyệt các node con (text hoặc element)
+    node.childNodes.forEach(child => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const text = child.textContent?.trim();
+        if (isValidPhrase(text)) {
+          phrases.add(text);
+          console.log('text', text)
+        }
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        this.traverse(child as HTMLElement, phrases);
+      }
     });
   }
+
 }

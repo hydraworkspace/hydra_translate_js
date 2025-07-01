@@ -81,31 +81,43 @@ var Hydra = (() => {
      * Traverse DOM node đệ quy và thu thập cụm từ
      */
     traverse(node, phrases) {
-      var _a, _b, _c;
-      const text = (_a = node.textContent) == null ? void 0 : _a.trim();
-      if (isValidPhrase(text)) phrases.add(text);
+      var _a, _b;
       this.attributes.forEach((attr) => {
         var _a2;
         const value = (_a2 = node.getAttribute(attr)) == null ? void 0 : _a2.trim();
         if (isValidPhrase(value)) {
           phrases.add(value);
+          console.log(attr, value);
         }
       });
       if (node instanceof HTMLInputElement || node instanceof HTMLTextAreaElement) {
-        const value = (_b = node.value) == null ? void 0 : _b.trim();
-        if (isValidPhrase(value)) phrases.add(value);
+        const value = (_a = node.value) == null ? void 0 : _a.trim();
+        if (isValidPhrase(value)) {
+          phrases.add(value);
+          console.log("input", value);
+        }
       }
       if (node instanceof HTMLSelectElement) {
         const selectedOption = node.options[node.selectedIndex];
         if (selectedOption) {
-          const optionText = (_c = selectedOption.textContent) == null ? void 0 : _c.trim();
+          const optionText = (_b = selectedOption.textContent) == null ? void 0 : _b.trim();
           if (isValidPhrase(optionText)) {
             phrases.add(optionText);
+            console.log("select", optionText);
           }
         }
       }
-      Array.from(node.children).forEach((child) => {
-        this.traverse(child, phrases);
+      node.childNodes.forEach((child) => {
+        var _a2;
+        if (child.nodeType === Node.TEXT_NODE) {
+          const text = (_a2 = child.textContent) == null ? void 0 : _a2.trim();
+          if (isValidPhrase(text)) {
+            phrases.add(text);
+            console.log("text", text);
+          }
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+          this.traverse(child, phrases);
+        }
       });
     }
   };
