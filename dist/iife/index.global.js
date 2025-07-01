@@ -28,12 +28,11 @@ var Hydra = (() => {
   });
 
   // src/phrase-scanner.ts
-  var ATTRIBUTES = ["placeholder", "alt", "title", "aria-label"];
   function isValidPhrase(value) {
     return !!(value == null ? void 0 : value.trim());
   }
-  var PhraseScanner = class {
-    constructor(attributes = ATTRIBUTES) {
+  var _PhraseScanner = class _PhraseScanner {
+    constructor(attributes = _PhraseScanner.DEFAULT_ATTRIBUTES) {
       this.attributes = attributes;
     }
     /**
@@ -81,7 +80,10 @@ var Hydra = (() => {
      * Traverse DOM node đệ quy và thu thập cụm từ
      */
     traverse(node, phrases) {
-      var _a, _b;
+      var _a;
+      if (["SCRIPT", "STYLE", "NOSCRIPT"].includes(node.tagName)) {
+        return;
+      }
       this.attributes.forEach((attr) => {
         var _a2;
         const value = (_a2 = node.getAttribute(attr)) == null ? void 0 : _a2.trim();
@@ -98,14 +100,14 @@ var Hydra = (() => {
         }
       }
       if (node instanceof HTMLSelectElement) {
-        const selectedOption = node.options[node.selectedIndex];
-        if (selectedOption) {
-          const optionText = (_b = selectedOption.textContent) == null ? void 0 : _b.trim();
+        Array.from(node.options).forEach((option) => {
+          var _a2;
+          const optionText = (_a2 = option.textContent) == null ? void 0 : _a2.trim();
           if (isValidPhrase(optionText)) {
             phrases.add(optionText);
-            console.log("select", optionText);
+            console.log("option", optionText);
           }
-        }
+        });
       }
       node.childNodes.forEach((child) => {
         var _a2;
@@ -121,6 +123,17 @@ var Hydra = (() => {
       });
     }
   };
+  _PhraseScanner.DEFAULT_ATTRIBUTES = [
+    "placeholder",
+    "alt",
+    "title",
+    "aria-label",
+    "aria-labelledby",
+    "aria-describedby",
+    "aria-placeholder",
+    "aria-valuetext"
+  ];
+  var PhraseScanner = _PhraseScanner;
 
   // src/phrase-cache.ts
   var STORAGE_KEY = "hydra:cachedPhrases";

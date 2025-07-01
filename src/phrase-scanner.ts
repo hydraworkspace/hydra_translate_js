@@ -1,13 +1,21 @@
-const ATTRIBUTES = ['placeholder', 'alt', 'title', 'aria-label'];
-
 function isValidPhrase(value: string | null | undefined): value is string {
   return !!value?.trim();
 }
 
 export class PhraseScanner {
+  static DEFAULT_ATTRIBUTES = [
+    'placeholder',
+    'alt',
+    'title',
+    'aria-label',
+    'aria-labelledby',
+    'aria-describedby',
+    'aria-placeholder',
+    'aria-valuetext',
+  ];
   private readonly attributes: string[];
 
-  constructor(attributes: string[] = ATTRIBUTES) {
+  constructor(attributes: string[] = PhraseScanner.DEFAULT_ATTRIBUTES) {
     this.attributes = attributes;
   }
 
@@ -65,6 +73,10 @@ export class PhraseScanner {
    * Traverse DOM node đệ quy và thu thập cụm từ
    */
   private traverse(node: HTMLElement, phrases: Set<string>) {
+    if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(node.tagName)) {
+      return;
+    }
+
     // 1. Quét các attribute
     this.attributes.forEach(attr => {
       const value = node.getAttribute(attr)?.trim();
@@ -84,14 +96,13 @@ export class PhraseScanner {
     }
 
     if (node instanceof HTMLSelectElement) {
-      const selectedOption = node.options[node.selectedIndex];
-      if (selectedOption) {
-        const optionText = selectedOption.textContent?.trim();
+      Array.from(node.options).forEach(option => {
+        const optionText = option.textContent?.trim();
         if (isValidPhrase(optionText)) {
           phrases.add(optionText);
-          console.log('select', optionText);
+          console.log('option', optionText);
         }
-      }
+      });
     }
 
     // 3. Duyệt các node con (text hoặc element)
